@@ -21,9 +21,8 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var unitsLabel: UILabel!
     
     private var disposeBag = DisposeBag()
-    var values = [Double: Double]()
+    private var values = [Double: Double]()
     
-//    var sensorModel:SensorProtocol = AccelerometerModel()
     var sensorViewModel: SensorViewModel? {
         didSet {
             guard let svm = sensorViewModel else { return }
@@ -33,7 +32,6 @@ class DetailViewController: UIViewController {
                 case .next(let values):
                     self.values[values.0] = values.1
                     self.update(with: self.values)
-//                    self?.update(with: values)
                 default:
                     break
                 }
@@ -49,14 +47,9 @@ class DetailViewController: UIViewController {
         if sensorViewModel == nil {
             sensorViewModel = SensorViewModel(sensor: AccelerometerModel())
         }
-//        sensorModel.completion = { [weak self] in
-//            self?.updateValues()
-//        }
     }
     
     private func setupUI() {
-//        titleLabel.text = sensorModel.title
-//        unitsLabel.text = sensorModel.units
         valueLabel.text = "0"
         setupChartView()
     }

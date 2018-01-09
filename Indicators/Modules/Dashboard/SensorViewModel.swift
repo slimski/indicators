@@ -11,28 +11,26 @@ import RxSwift
 import RxCocoa
 
 class SensorViewModel {
-    let sensor: SensorProtocol
-    var values: Observable<(Double, Double)>!
+    
+    var values: Observable<(Double, Double)>
     
     var title: BehaviorSubject<String>
     
     var units: BehaviorSubject<String>
     
-    let startTime = Date()
-    let disposeBag = DisposeBag()
+    private let sensor: SensorProtocol
+    private let startTime: Date
+    private let disposeBag = DisposeBag()
     
     init(sensor: SensorProtocol) {
         self.sensor = sensor
         self.title = BehaviorSubject(value: self.sensor.title)
         self.units = BehaviorSubject(value: self.sensor.units)
-        self.setup()
-    }
-    
-    func setup() {
-        values = self.sensor.value.asObservable().map { [weak self] (value) -> (Double, Double) in
-            guard let `self` = self else { return (0,0)}
+        self.startTime = Date()
+        let startTime = self.startTime
+        values = self.sensor.value.asObservable().map { (value) -> (Double, Double) in
             let date = Date()
-            let time = date.timeIntervalSince(self.startTime)
+            let time = date.timeIntervalSince(startTime)
             return (time, value)
         }
     }
