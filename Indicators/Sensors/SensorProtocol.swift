@@ -12,9 +12,8 @@ import RxSwift
 protocol SensorProtocol {
     var title: String { get }
     var units: String { get }
-    var completion: (() -> ())? { get set }
-//    var values: Variable<[Double: Double]> { get }
     var value: Variable<Double> { get }
     func isAvailable() -> Bool
-    
+    var valueFormat: String { get }
+    var mainColorHex: String { get }
 }

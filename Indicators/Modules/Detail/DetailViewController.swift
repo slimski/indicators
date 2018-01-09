@@ -45,7 +45,8 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         if sensorViewModel == nil {
-            sensorViewModel = SensorViewModel(sensor: AccelerometerModel())
+//            sensorViewModel = SensorViewModel(sensor: AccelerometerModel())
+            sensorViewModel = SensorViewModel(sensor: PressureModel())
         }
     }
     
@@ -76,10 +77,10 @@ class DetailViewController: UIViewController {
             .suffix(10)
             .map { ChartDataEntry(x: $0, y: $1) }
         let lastValue = values.last?.y ?? 0
-        valueLabel.text = "\(lastValue.format(f: ".2"))"
+        valueLabel.text = "\(lastValue.format(f: self.sensorViewModel?.valueFormat ?? ".0"))"
         let set1 = LineChartDataSet(values: values, label: "")
         set1.drawIconsEnabled = false
-        set1.setColor(UIColor("#F04848"))
+        set1.setColor(UIColor(self.sensorViewModel?.mainColorHex ?? "#000000"))
         set1.lineWidth = 2
         set1.drawCirclesEnabled = false
         set1.drawCircleHoleEnabled = false

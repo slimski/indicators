@@ -13,8 +13,9 @@ import RxSwift
 class PressureModel: SensorProtocol {
     let title = "Pressure"
     let units = "hPa"
-    var completion: (() -> ())?
-    var values = Variable<[Double: Double]>([Double: Double]())
+    let valueFormat = ".0"
+    let mainColorHex = "#F04848"
+    
     var value: Variable<Double> = Variable(0)
     
     init() {
@@ -29,11 +30,7 @@ class PressureModel: SensorProtocol {
         if isAvailable() {
             altimeter.startRelativeAltitudeUpdates(to: .main, withHandler: { [weak self] (altitudeData, error) in
                 guard let `self` = self,let pressure = altitudeData?.pressure else { return }
-                
-                let date = Date()
-                let time = date.timeIntervalSince(self.startTime)
-                self.values.value[time] = round(pressure.doubleValue )
-                self.completion?()
+                self.value.value = round(pressure.doubleValue * 10)
             })
         }
     }
