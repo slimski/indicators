@@ -15,17 +15,17 @@ class PressureModel: SensorProtocol {
     let units = "hPa"
     let valueFormat = ".0"
     let mainColorHex = "#F04848"
-    
+
     var value: Variable<Double> = Variable(0)
-    
+
     init() {
         setupHandler()
     }
-    
+
     func isAvailable() -> Bool {
         return CMAltimeter.isRelativeAltitudeAvailable()
     }
-    
+
     private func setupHandler() {
         if isAvailable() {
             altimeter.startRelativeAltitudeUpdates(to: .main, withHandler: { [weak self] (altitudeData, error) in
@@ -34,8 +34,8 @@ class PressureModel: SensorProtocol {
             })
         }
     }
-    
+
     private let startTime = Date()
-    
+
     private let altimeter = CMAltimeter()
 }

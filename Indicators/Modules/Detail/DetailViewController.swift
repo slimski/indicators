@@ -14,15 +14,15 @@ import RxSwift
 import RxCocoa
 
 class DetailViewController: UIViewController {
-    
+
     @IBOutlet weak var lineChartView: LineChartView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var valueLabel: UILabel!
     @IBOutlet weak var unitsLabel: UILabel!
-    
+
     private var disposeBag = DisposeBag()
     private var values = [Double: Double]()
-    
+
     var sensorViewModel: SensorViewModel? {
         didSet {
             guard let svm = sensorViewModel else { return }
@@ -49,25 +49,25 @@ class DetailViewController: UIViewController {
             sensorViewModel = SensorViewModel(sensor: PressureModel())
         }
     }
-    
+
     private func setupUI() {
         valueLabel.text = "0"
         setupChartView()
     }
-    
+
     private func setupChartView() {
         lineChartView.chartDescription?.enabled = false
         lineChartView.dragEnabled = false
         lineChartView.setScaleEnabled(true)
         lineChartView.pinchZoomEnabled = false
-        
+
         lineChartView.leftAxis.enabled = false
         lineChartView.rightAxis.enabled = false
         lineChartView.xAxis.enabled = false
-        
+
         lineChartView.legend.form = .empty
         lineChartView.drawGridBackgroundEnabled = false
-        
+
         lineChartView.animate(xAxisDuration: 2.5)
     }
 
@@ -86,11 +86,11 @@ class DetailViewController: UIViewController {
         set1.drawCircleHoleEnabled = false
         set1.drawValuesEnabled = false
         set1.mode = .horizontalBezier
-        
+
         set1.drawFilledEnabled = false
-        
+
         let data = LineChartData(dataSet: set1)
-        
+
         lineChartView.data = data
     }
 }

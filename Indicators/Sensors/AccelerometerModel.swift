@@ -15,27 +15,27 @@ class AccelerometerModel: SensorProtocol {
     let units = "g"
     let valueFormat = ".2"
     let mainColorHex = "#F04848"
-    
-    var completion: (() -> ())?
-    
+
+    var completion: (() -> Void)?
+
     var value: Variable<Double> = Variable(0)
-    
+
     private let motionManager = CMMotionManager()
-    
+
     func isAvailable() -> Bool {
         return motionManager.isAccelerometerAvailable
     }
-    
+
     init() {
         setupHandler()
     }
-    
+
     private func setupHandler() {
         if isAvailable() {
             motionManager.accelerometerUpdateInterval = 1
             motionManager.startAccelerometerUpdates(to: .main, withHandler: { [weak self] (accelerometerData, error) in
                 guard let `self` = self,let acceleration = accelerometerData?.acceleration else { return }
-                
+
                 self.value.value = acceleration.x
             })
         }
