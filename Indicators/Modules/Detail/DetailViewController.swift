@@ -10,6 +10,8 @@ import UIKit
 import CoreMotion
 import Charts
 import UIColor_Hex_Swift
+import RxSwift
+import RxCocoa
 
 class DetailViewController: UIViewController {
     
@@ -18,19 +20,43 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var valueLabel: UILabel!
     @IBOutlet weak var unitsLabel: UILabel!
     
-    let sensorModel = PressureModel.instance
+    private var disposeBag = DisposeBag()
+    var values = [Double: Double]()
+    
+//    var sensorModel:SensorProtocol = AccelerometerModel()
+    var sensorViewModel: SensorViewModel? {
+        didSet {
+            guard let svm = sensorViewModel else { return }
+            svm.values.subscribe { [weak self ](event) in
+                guard let `self` = self else { return }
+                switch event {
+                case .next(let values):
+                    self.values[values.0] = values.1
+                    self.update(with: self.values)
+//                    self?.update(with: values)
+                default:
+                    break
+                }
+            }.disposed(by: disposeBag)
+            svm.title.bind(to: self.titleLabel.rx.text).disposed(by: disposeBag)
+            svm.units.bind(to: self.unitsLabel.rx.text).disposed(by: disposeBag)
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        sensorModel.completion = { [weak self] in
-            self?.updateValues()
+        if sensorViewModel == nil {
+            sensorViewModel = SensorViewModel(sensor: AccelerometerModel())
         }
+//        sensorModel.completion = { [weak self] in
+//            self?.updateValues()
+//        }
     }
     
     private func setupUI() {
-        titleLabel.text = sensorModel.title
-        unitsLabel.text = sensorModel.units
+//        titleLabel.text = sensorModel.title
+//        unitsLabel.text = sensorModel.units
         valueLabel.text = "0"
         setupChartView()
     }
@@ -51,12 +77,13 @@ class DetailViewController: UIViewController {
         lineChartView.animate(xAxisDuration: 2.5)
     }
 
-    private func updateValues() {
-        let values = sensorModel.values
+    private func update(with values: [Double: Double]) {
+        let values = values
             .sorted(by: { $0.0 < $1.0 })
             .suffix(10)
             .map { ChartDataEntry(x: $0, y: $1) }
-        valueLabel.text = "\(Int(values.last?.y ?? 0))"
+        let lastValue = values.last?.y ?? 0
+        valueLabel.text = "\(lastValue.format(f: ".2"))"
         let set1 = LineChartDataSet(values: values, label: "")
         set1.drawIconsEnabled = false
         set1.setColor(UIColor("#F04848"))
@@ -74,3 +101,8 @@ class DetailViewController: UIViewController {
     }
 }
 
+extension Double {
+    func format(f: String) -> String {
+        return String(format: "%\(f)f", self)
+    }
+}

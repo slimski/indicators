@@ -8,33 +8,37 @@
 
 import Foundation
 import CoreMotion
+import RxSwift
 
-class PressureModel {
-    static let instance = PressureModel()
+class PressureModel: SensorProtocol {
     let title = "Pressure"
     let units = "hPa"
     var completion: (() -> ())?
-    var values = [Double: Double]()
-    
-    private let startTime = Date()
-    private let altitudeHandler: CMAltitudeHandler =  { (altitudeData, error) in
-        guard let pressure = altitudeData?.pressure else { return }
-        
-        let date = Date()
-        let time = date.timeIntervalSince(instance.startTime)
-        instance.values[time] = round(pressure.doubleValue * 10)
-        instance.completion?()
-    }
-    
-    private let altimeter = CMAltimeter()
+    var values = Variable<[Double: Double]>([Double: Double]())
+    var value: Variable<Double> = Variable(0)
     
     init() {
-        if isAvailable() {
-            altimeter.startRelativeAltitudeUpdates(to: .main, withHandler: altitudeHandler)
-        }
+        setupHandler()
     }
     
     func isAvailable() -> Bool {
         return CMAltimeter.isRelativeAltitudeAvailable()
     }
+    
+    private func setupHandler() {
+        if isAvailable() {
+            altimeter.startRelativeAltitudeUpdates(to: .main, withHandler: { [weak self] (altitudeData, error) in
+                guard let `self` = self,let pressure = altitudeData?.pressure else { return }
+                
+                let date = Date()
+                let time = date.timeIntervalSince(self.startTime)
+                self.values.value[time] = round(pressure.doubleValue )
+                self.completion?()
+            })
+        }
+    }
+    
+    private let startTime = Date()
+    
+    private let altimeter = CMAltimeter()
 }
