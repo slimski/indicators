@@ -28,7 +28,7 @@ class PressureModel: SensorProtocol {
 
     private func setupHandler() {
         if isAvailable() {
-            altimeter.startRelativeAltitudeUpdates(to: .main, withHandler: { [weak self] (altitudeData, error) in
+            altimeter.startRelativeAltitudeUpdates(to: .main, withHandler: { [weak self] (altitudeData, _) in
                 guard let `self` = self,let pressure = altitudeData?.pressure else { return }
                 self.value.value = round(pressure.doubleValue * 10)
             })

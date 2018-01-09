@@ -13,7 +13,6 @@
 		627FECD11FFECDE7001BC474 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627FECD01FFECDE7001BC474 /* DashboardViewController.swift */; };
 		627FECD41FFEE1AF001BC474 /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627FECD31FFEE1AF001BC474 /* DashboardViewModel.swift */; };
 		627FECD91FFEE51F001BC474 /* PressureModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 627FECD81FFEE51F001BC474 /* PressureModel.swift */; };
-		62970C0F1FFB7DDF00F66644 /* BalloonMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62970C0E1FFB7DDF00F66644 /* BalloonMarker.swift */; };
 		62B318E41FE6B7DE00F49720 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B318E31FE6B7DE00F49720 /* AppDelegate.swift */; };
 		62B318E61FE6B7DE00F49720 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B318E51FE6B7DE00F49720 /* DetailViewController.swift */; };
 		62B318E91FE6B7DE00F49720 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62B318E71FE6B7DE00F49720 /* Main.storyboard */; };
@@ -30,7 +29,6 @@
 		627FECD01FFECDE7001BC474 /* DashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		627FECD31FFEE1AF001BC474 /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
 		627FECD81FFEE51F001BC474 /* PressureModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PressureModel.swift; sourceTree = "<group>"; };
-		62970C0E1FFB7DDF00F66644 /* BalloonMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalloonMarker.swift; sourceTree = "<group>"; };
 		62B318E01FE6B7DE00F49720 /* Indicators.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Indicators.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		62B318E31FE6B7DE00F49720 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		62B318E51FE6B7DE00F49720 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
@@ -111,7 +109,6 @@
 		62970C0D1FFB7DD200F66644 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				62970C0E1FFB7DDF00F66644 /* BalloonMarker.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -310,7 +307,6 @@
 				62B318E61FE6B7DE00F49720 /* DetailViewController.swift in Sources */,
 				627FECD41FFEE1AF001BC474 /* DashboardViewModel.swift in Sources */,
 				62B318E41FE6B7DE00F49720 /* AppDelegate.swift in Sources */,
-				62970C0F1FFB7DDF00F66644 /* BalloonMarker.swift in Sources */,
 				627FECD11FFECDE7001BC474 /* DashboardViewController.swift in Sources */,
 				622A46B0200041E700ACEB7D /* AccelerometerModel.swift in Sources */,
 				622A46AE2000305500ACEB7D /* SensorViewModel.swift in Sources */,

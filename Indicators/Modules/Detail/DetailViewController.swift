@@ -77,7 +77,7 @@ class DetailViewController: UIViewController {
             .suffix(10)
             .map { ChartDataEntry(x: $0, y: $1) }
         let lastValue = values.last?.y ?? 0
-        valueLabel.text = "\(lastValue.format(f: self.sensorViewModel?.valueFormat ?? ".0"))"
+        valueLabel.text = "\(lastValue.format(using: self.sensorViewModel?.valueFormat ?? ".0"))"
         let set1 = LineChartDataSet(values: values, label: "")
         set1.drawIconsEnabled = false
         set1.setColor(UIColor(self.sensorViewModel?.mainColorHex ?? "#000000"))
@@ -96,7 +96,7 @@ class DetailViewController: UIViewController {
 }
 
 extension Double {
-    func format(f: String) -> String {
-        return String(format: "%\(f)f", self)
+    func format(using formatString: String) -> String {
+        return String(format: "%\(formatString)f", self)
     }
 }

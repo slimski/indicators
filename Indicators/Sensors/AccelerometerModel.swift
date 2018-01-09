@@ -33,7 +33,7 @@ class AccelerometerModel: SensorProtocol {
     private func setupHandler() {
         if isAvailable() {
             motionManager.accelerometerUpdateInterval = 1
-            motionManager.startAccelerometerUpdates(to: .main, withHandler: { [weak self] (accelerometerData, error) in
+            motionManager.startAccelerometerUpdates(to: .main, withHandler: { [weak self] (accelerometerData, _) in
                 guard let `self` = self,let acceleration = accelerometerData?.acceleration else { return }
 
                 self.value.value = acceleration.x
