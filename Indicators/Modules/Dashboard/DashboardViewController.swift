@@ -20,7 +20,13 @@ class DashboardViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setupUI()
         self.setupTableView()
+    }
+
+    private func setupUI() {
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
     }
 
     private func setupTableView() {

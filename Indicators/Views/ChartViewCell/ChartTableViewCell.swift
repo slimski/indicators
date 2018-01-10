@@ -14,7 +14,8 @@ class ChartTableViewCell: UITableViewCell {
     @IBOutlet weak var lineChartView: LineChartView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var unitsLabel: UILabel!
-
+    @IBOutlet weak var borderView: UIView!
+    
     static let identifier = "ChartTableViewCell"
 
     var sensorViewModel: SensorViewModel? {
@@ -40,8 +41,13 @@ class ChartTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+
+        setupUI()
         setupChartView()
+    }
+
+    private func setupUI() {
+        self.borderView.layer.cornerRadius = 10
     }
 
     private func setupChartView() {
