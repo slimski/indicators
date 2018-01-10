@@ -15,7 +15,7 @@ class ChartTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var unitsLabel: UILabel!
     @IBOutlet weak var borderView: UIView!
-    
+
     static let identifier = "ChartTableViewCell"
 
     var sensorViewModel: SensorViewModel? {
