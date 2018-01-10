@@ -22,7 +22,16 @@ class ChartTableViewCell: UITableViewCell {
         didSet {
             guard let svm = sensorViewModel else { return }
             svm.title.bind(to: titleLabel.rx.text).disposed(by: disposeBag)
-            svm.units.bind(to: unitsLabel.rx.text).disposed(by: disposeBag)
+            let lastValue = svm.values.map { _, value -> String in
+                return "\(value.format(using: svm.valueFormat))"
+            }
+            
+            Observable
+                .combineLatest(lastValue, svm.shortUnits) { "\($0) \($1)" }
+                .bind(to: unitsLabel.rx.text)
+                .disposed(by: disposeBag)
+
+            unitsLabel.textColor = UIColor(svm.mainColorHex)
             svm.values.subscribe { [weak self] (event) in
                 guard let `self` = self else { return }
                 switch event {
@@ -72,8 +81,6 @@ class ChartTableViewCell: UITableViewCell {
             .sorted(by: { $0.0 < $1.0 })
             .suffix(10)
             .map { ChartDataEntry(x: $0, y: $1) }
-        let lastValue = values.last?.y ?? 0
-        unitsLabel.text = "\(lastValue.format(using: sensorViewModel.valueFormat))"
         let set1 = LineChartDataSet(values: values, label: "")
         set1.drawIconsEnabled = false
         set1.setColor(UIColor(sensorViewModel.mainColorHex))

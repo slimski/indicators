@@ -18,6 +18,8 @@ class SensorViewModel {
 
     var units: BehaviorSubject<String>
 
+    var shortUnits: BehaviorSubject<String>
+
     var valueFormat: String {
         return self.sensor.valueFormat
     }
@@ -34,6 +36,7 @@ class SensorViewModel {
         self.sensor = sensor
         self.title = BehaviorSubject(value: self.sensor.title)
         self.units = BehaviorSubject(value: self.sensor.units)
+        self.shortUnits = BehaviorSubject(value: self.sensor.shortUnits)
 
         self.startTime = Date()
         let startTime = self.startTime
