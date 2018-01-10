@@ -13,6 +13,7 @@ import RxSwift
 class PressureModel: SensorProtocol {
     let title = "Pressure"
     let units = "hPa"
+    let shortUnits = "hPa"
     let valueFormat = ".0"
     let mainColorHex = "#F04848"
 

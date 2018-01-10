@@ -13,8 +13,9 @@ import RxSwift
 class AccelerometerModel: SensorProtocol {
     let title = "Accelerometer"
     let units = "g"
+    let shortUnits = "g"
     let valueFormat = ".2"
-    let mainColorHex = "#F04848"
+    let mainColorHex = "#F09C48"
 
     var completion: (() -> Void)?
 

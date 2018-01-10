@@ -12,6 +12,7 @@ import RxSwift
 protocol SensorProtocol {
     var title: String { get }
     var units: String { get }
+    var shortUnits: String { get }
     var value: Variable<Double> { get }
     func isAvailable() -> Bool
     var valueFormat: String { get }

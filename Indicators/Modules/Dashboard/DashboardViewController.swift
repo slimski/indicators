@@ -14,7 +14,13 @@ class DashboardViewController: UIViewController {
     @IBOutlet weak var mainTableView: UITableView!
 
     // temp models initializer
-    var models: Variable<[SensorViewModel]> = Variable([SensorViewModel(sensor: PressureModel()), SensorViewModel(sensor: AccelerometerModel())])
+    var models: Variable<[SensorViewModel]> = Variable(
+        [
+            SensorViewModel(sensor: PressureModel()),
+            SensorViewModel(sensor: AccelerometerModel()),
+            SensorViewModel(sensor: AltitudeModel()),
+            SensorViewModel(sensor: SpeedModel())
+        ])
 
     private let disposeBag = DisposeBag()
 
